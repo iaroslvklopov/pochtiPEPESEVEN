@@ -92,45 +92,46 @@ function reset() {
 }
 // создание строки для таблицы
 function row(song) {
-    const tr = document.createElement("tr");
-    tr.setAttribute("data-rowid", song.id);
-    const idTd = document.createElement("td");
-    idTd.append(song.id);
-    tr.append(idTd);
+        const tr = document.createElement("tr");
+        tr.setAttribute("data-rowid", song.id);
+        const idTd = document.createElement("td");
+        idTd.append(song.id);
+        tr.append(idTd);
 
-    const nameTd = document.createElement("td");
-    nameTd.append(song.name);
-    tr.append(nameTd);
+        const nameTd = document.createElement("td");
+        nameTd.append(song.name);
+        tr.append(nameTd);
 
-    const singerTd = document.createElement("td");
-    singerTd.append(song.singer);
-    tr.append(singerTd);
 
-    const auditionsTd = document.createElement("td");
-    auditionsTd.append(song.auditions);
-    tr.append(auditionsTd);
+        const singerTd = document.createElement("td");
+        singerTd.append(song.singer);
+        tr.append(singerTd);
 
-    const linksTd = document.createElement("td");
-    const editLink = document.createElement("a");
-    editLink.setAttribute("data-id", song.id);
-    editLink.setAttribute("style", "cursor:pointer;padding:px;");
-    editLink.append("Изменить");
-    editLink.addEventListener("click", e => {
-        e.preventDefault();
-        GetSongById(song.id);
-    });
-    linksTd.append(editLink);
-    const removeLink = document.createElement("a");
-    removeLink.setAttribute("data-id", song.id);
-    removeLink.setAttribute("style", "cursor:pointer;padding:px;");
-    removeLink.append("Удалить");
-    removeLink.addEventListener("click", e => {
-        e.preventDefault();
-        DeleteSong(song.id);
-    });
-    linksTd.append(removeLink);
-    tr.appendChild(linksTd);
-    return tr;
+        const auditionsTd = document.createElement("td");
+        auditionsTd.append(song.auditions);
+        tr.append(auditionsTd);
+
+        const linksTd = document.createElement("td");
+        const editLink = document.createElement("a");
+        editLink.setAttribute("data-id", song.id);
+        editLink.setAttribute("style", "cursor:pointer;padding:px;");
+        editLink.append("Изменить");
+        editLink.addEventListener("click", e => {
+            e.preventDefault();
+            GetSongById(song.id);
+        });
+        linksTd.append(editLink);
+        const removeLink = document.createElement("a");
+        removeLink.setAttribute("data-id", song.id);
+        removeLink.setAttribute("style", "cursor:pointer;padding:px;");
+        removeLink.append("Удалить");
+        removeLink.addEventListener("click", e => {
+            e.preventDefault();
+            DeleteSong(song.id);
+        });
+        linksTd.append(removeLink);
+        tr.appendChild(linksTd);
+        return tr;
 }
 
 function InitialFunction() {
@@ -139,14 +140,25 @@ function InitialFunction() {
         e.preventDefault();
         reset();
     })
+
     // отправка формы
     document.forms["songForm"].addEventListener("submit", e => {
         e.preventDefault();
         const form = document.forms["songForm"];
         const id = form.elements["id"].value;
         const name = form.elements["name"].value;
+        if (name == '') {
+            alert('Введите че то');
+            return;
+        }
         const singer = form.elements["singer"].value;
-        const auditions = form.elements["auditions"].value;
+        if (singer == '') {
+            alert('Введите значения');
+            return;
+            const auditions = form.elements["auditions"].value;
+            if (auditions == '') {
+                alert('Введите значения');
+                return;
         if (id == 0)
             CreateSong(name, singer, auditions);
         else
